@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: db
+    image: postgres:latest
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${SPRING_DB_NAME}
+      POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+#      DEBUG: ${DEBUG}
+    restart: always
+
+
+volumes:
+  db_data:
+
+
+
+
