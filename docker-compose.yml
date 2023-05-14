@@ -15,7 +15,12 @@ services:
 #      DEBUG: ${DEBUG}
     restart: always
 
-
+  alpine:
+    image: alpine:latest
+    command: sh -c "while true; do echo 'Hello, world!'; sleep 1; done"
+    deploy:
+      mode: replicated
+      replicas: 6
 volumes:
   db_data:
 
