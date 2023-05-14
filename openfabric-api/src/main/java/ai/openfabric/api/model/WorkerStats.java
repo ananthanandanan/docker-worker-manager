@@ -1,5 +1,6 @@
 package ai.openfabric.api.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -24,34 +25,31 @@ public class WorkerStats extends Datable implements Serializable {
 
     @Getter
     @Setter
-    private long memoryUsage;
+    private Long memoryUsage;
 
     @Getter
     @Setter
-    private long networkInput;
+    private Long networkInput;
 
     @Getter
     @Setter
-    private long networkOutput;
+    private Long networkOutput;
 
     @Getter
     @Setter
-    private long blockInput;
+    private Long blockInput;
 
     @Getter
     @Setter
-    private long blockOutput;
+    private Long blockOutput;
 
     @Getter
     @Setter
-    private long diskRead;
-
-    @Getter
-    @Setter
-    private long diskWrite;
+    private Long processCount;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "worker_id")
+    @JsonBackReference //handle stack overflowing
     @Getter
     @Setter
     private Worker worker;

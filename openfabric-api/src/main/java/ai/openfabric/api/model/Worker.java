@@ -1,5 +1,6 @@
 package ai.openfabric.api.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.dockerjava.api.model.ExposedPort;
 import com.github.dockerjava.api.model.Ports;
 import lombok.Getter;
@@ -51,10 +52,6 @@ public class Worker extends Datable implements Serializable {
 
     @Getter
     @Setter
-    private String imageName;
-
-    @Getter
-    @Setter
     private String command;
 
     @Getter
@@ -63,34 +60,24 @@ public class Worker extends Datable implements Serializable {
 
     @Getter
     @Setter
-    private String portBinds;
-
-    @Getter
-    @Setter
-    private String networkSettings;
+    private String bindedPorts;
 
     @Getter
     @Setter
     private String volumeBindings;
 
-    @Getter
-    @Setter
-    private String environmentVariables;
 
     @Getter
     @Setter
     private String healthCheck;
 
-    @Getter
-    @Setter
-    private String resourceLimits;
 
     public void setPort(String port) {
         this.containerPort = Integer.parseInt(port);
     }
 
-    public void setPortBinds(Map<ExposedPort, Ports.Binding[]> portBindings) {
-        this.portBinds = portBindings.toString();
+    public void setBindedPorts(Map<ExposedPort, Ports.Binding[]> portBindings) {
+        this.bindedPorts = portBindings.toString();
         if (!portBindings.isEmpty()) {
             ExposedPort exposedPort = portBindings.keySet().iterator().next();
             this.hostPort = Integer.parseInt(portBindings.get(exposedPort)[0].getHostPortSpec());
@@ -98,6 +85,7 @@ public class Worker extends Datable implements Serializable {
     }
 
     @OneToOne(mappedBy = "worker", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference //handle stack overflowing
     @Getter
     @Setter
     private WorkerStats workerStats;
