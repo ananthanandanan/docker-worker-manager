@@ -130,7 +130,7 @@ public class WorkerService {
                     String source = mount.getSource();
                     String destination = String.valueOf(mount.getDestination());
 
-                    // Add source and destination to the volumeBindingsList
+                    // Add source and destination to the volumeBindingList
                     String volumeBinding = String.format("%s:%s", source, destination);
                     volumeBindingList.add(volumeBinding);
                 }
