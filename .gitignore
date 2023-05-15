@@ -1,8 +1,6 @@
 .DS_Store
-.env
 .gradle/
 .idea/
 /build/
-/gradle/
 /openfabric-api/build/
 openfabric-node.log
